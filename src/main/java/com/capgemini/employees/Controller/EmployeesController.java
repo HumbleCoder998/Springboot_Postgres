@@ -1,10 +1,12 @@
 package com.capgemini.employees.Controller;
 
 import com.capgemini.employees.DTO.EmployeeRequest;
+import com.capgemini.employees.DTO.EmployeeResponse;
 import com.capgemini.employees.EmployeesApplication;
 import com.capgemini.employees.Exceptions.EmployeeException;
 import com.capgemini.employees.Models.Employee;
 import com.capgemini.employees.Service.EmployeeService;
+import com.capgemini.employees.Utils.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.List;
 public class EmployeesController {
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    Validation validation;
 
     @GetMapping("/employees")
     public ResponseEntity<?> getEmployees()
@@ -32,9 +36,10 @@ public class EmployeesController {
     }
 
     @PostMapping("/employee")
-    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeRequest employeeRequest)
+    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeRequest employeeRequest)
     {
      Employee newEmployee = employeeRequest.from(employeeRequest);
+     validation.validateAndUpdate(newEmployee,employeeRequest);
      return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.saveEmployee(newEmployee));
     }
 }

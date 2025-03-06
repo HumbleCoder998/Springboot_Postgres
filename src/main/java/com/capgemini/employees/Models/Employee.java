@@ -1,10 +1,15 @@
 package com.capgemini.employees.Models;
 
+import com.capgemini.employees.DTO.AddressResponse;
+import com.capgemini.employees.DTO.DepartmentResponse;
+import com.capgemini.employees.DTO.EmployeeResponse;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 @Entity
@@ -14,7 +19,8 @@ public class Employee {
     private UUID id;
     @Column()
     private String name;
-    @OneToOne
+    @ManyToOne()
+    @JoinColumn(name ="address_id")
     private Address address;
     @Column
     private int age;
@@ -52,5 +58,17 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public EmployeeResponse toEmployeeResponse() {
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        BeanUtils.copyProperties(this,employeeResponse);
+        DepartmentResponse departmentResponse = new DepartmentResponse();
+        BeanUtils.copyProperties(this.department,departmentResponse);
+        employeeResponse.setDepartmentResponse(departmentResponse);
+        AddressResponse addressResponse = new AddressResponse();
+        BeanUtils.copyProperties(this.address,addressResponse);
+        employeeResponse.setAddressResponse(addressResponse);
+        return employeeResponse;
     }
 }

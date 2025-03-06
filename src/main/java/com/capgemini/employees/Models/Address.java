@@ -1,12 +1,14 @@
 package com.capgemini.employees.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.capgemini.employees.Service.EmployeeService;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,9 +16,12 @@ import lombok.Setter;
 @Entity
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
     private String location;
+    @OneToMany
+    private List<Employee> employeeList;
 
     public String getLocation() {
         return location;

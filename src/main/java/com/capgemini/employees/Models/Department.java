@@ -1,9 +1,6 @@
 package com.capgemini.employees.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +11,7 @@ import java.util.List;
 @Entity
 public class Department {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column
     private String department;

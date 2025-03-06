@@ -1,5 +1,6 @@
 package com.capgemini.employees.Service;
 
+import com.capgemini.employees.DTO.EmployeeResponse;
 import com.capgemini.employees.Exceptions.EmployeeException;
 import com.capgemini.employees.Models.Employee;
 import com.capgemini.employees.Repositories.EmployeeRepository;
@@ -13,14 +14,14 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-
     public List<Employee> getAllEmployees() throws EmployeeException {
-        if(employeeRepository.count() > 1)
+        if(employeeRepository.findAll().size() >= 1) {
             return employeeRepository.findAll();
+        }
         throw new EmployeeException("Employees not exist");
     }
 
-    public Employee saveEmployee(Employee newEmployee) {
-        return employeeRepository.save(newEmployee);
+    public EmployeeResponse saveEmployee(Employee newEmployee) {
+        return employeeRepository.save(newEmployee).toEmployeeResponse();
     }
 }
