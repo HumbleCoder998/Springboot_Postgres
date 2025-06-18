@@ -16,9 +16,5 @@ public class DepartmentRequest {
         return department;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
     private String department;
 }

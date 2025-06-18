@@ -1,11 +1,13 @@
 package com.capgemini.employees.Utils;
 
 import com.capgemini.employees.DTO.EmployeeRequest;
+import com.capgemini.employees.Exceptions.EmployeeException;
 import com.capgemini.employees.Models.Address;
 import com.capgemini.employees.Models.Department;
 import com.capgemini.employees.Models.Employee;
 import com.capgemini.employees.Repositories.AddressRepository;
 import com.capgemini.employees.Repositories.DepartmentRepository;
+import com.capgemini.employees.Repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class Validation {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
 
     public Employee validateAndUpdate(Employee employee, EmployeeRequest employeeRequest) {
         Optional<Department> departmentOptional = departmentRepository.findByDepartment(employeeRequest.getDepartmentRequest().getDepartment());
@@ -28,6 +33,7 @@ public class Validation {
             Department department = new Department();
             department.setDepartment(employeeRequest.getDepartmentRequest().getDepartment());
             departmentRepository.save(department);
+            employee.setDepartment(department);
         }
         else {
             employee.setDepartment(departmentOptional.get());
