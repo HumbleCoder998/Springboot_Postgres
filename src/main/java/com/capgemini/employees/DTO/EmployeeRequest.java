@@ -10,6 +10,9 @@ public class EmployeeRequest {
 
     private String name;
     private int age;
+    private long salary;
+    private String nationality;
+    private int experience;
 
     private long adhaarNumber;
 
@@ -55,6 +58,30 @@ public class EmployeeRequest {
 
     public void setAddressRequest(AddressRequest addressRequest) {
         this.addressRequest = addressRequest;
+    }
+
+    public long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(long salary) {
+        this.salary = salary;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
     public Employee from(EmployeeRequest employeeRequest) {

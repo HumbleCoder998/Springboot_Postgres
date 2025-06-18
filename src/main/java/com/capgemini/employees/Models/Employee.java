@@ -24,6 +24,12 @@ public class Employee {
     private Address address;
     @Column
     private int age;
+    @Column
+    private long salary;
+    @Column
+    private int experience;
+    @Column
+    private String nationality;
     @ManyToOne()
     @JoinColumn(name ="department_id")
     private Department department;
@@ -58,6 +64,30 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(long salary) {
+        this.salary = salary;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public EmployeeResponse toEmployeeResponse() {
