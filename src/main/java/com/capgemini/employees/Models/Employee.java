@@ -16,9 +16,8 @@ import java.util.UUID;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
     @Column()
-<<<<<<< HEAD
     private String name;
     @Column
     private long salary;
@@ -26,23 +25,22 @@ public class Employee {
     private String nationality;
     @Column
     private int experience;
-=======
-    private String first_name;
-    @Column
-    private String last_name;
->>>>>>> e304d56d103e82c30a2ab3184c6093cd1ed04f63
     @ManyToOne()
     @JoinColumn(name ="address_id")
     private Address address;
     @Column
     private int age;
-    @Column(unique = true , length = 12 , nullable = false)
-    private long adhaarNumber;
-
     @ManyToOne()
     @JoinColumn(name ="department_id")
     private Department department;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Address getAddress() {
         return address;
@@ -68,7 +66,6 @@ public class Employee {
         this.department = department;
     }
 
-<<<<<<< HEAD
     public long getSalary() {
         return salary;
     }
@@ -91,30 +88,6 @@ public class Employee {
 
     public void setExperience(int experience) {
         this.experience = experience;
-=======
-    public long getAdhaarNumber() {
-        return adhaarNumber;
-    }
-
-    public void setAdhaarNumber(long adhaarNumber) {
-        this.adhaarNumber = adhaarNumber;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
->>>>>>> e304d56d103e82c30a2ab3184c6093cd1ed04f63
     }
 
     public EmployeeResponse toEmployeeResponse() {
@@ -124,7 +97,7 @@ public class Employee {
         BeanUtils.copyProperties(this.department,departmentResponse);
         employeeResponse.setDepartmentResponse(departmentResponse);
         AddressResponse addressResponse = new AddressResponse();
-        BeanUtils.copyProperties(this.getAddress(),addressResponse);
+        BeanUtils.copyProperties(this.address,addressResponse);
         employeeResponse.setAddressResponse(addressResponse);
         return employeeResponse;
     }
