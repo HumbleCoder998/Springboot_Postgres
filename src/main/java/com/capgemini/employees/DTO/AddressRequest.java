@@ -1,5 +1,6 @@
 package com.capgemini.employees.DTO;
 
+import com.capgemini.employees.Models.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,11 @@ public class AddressRequest {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Address toAddress() {
+        Address address = new Address();
+        address.setLocation(this.getLocation());
+        return address;
     }
 }

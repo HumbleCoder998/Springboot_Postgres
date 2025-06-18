@@ -1,15 +1,9 @@
 package com.capgemini.employees.Exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 public class EmployeeNotFoundException extends Exception {
     private String message;
 
-    public EmployeeNotFoundException(String message) {
-        super(message);
+    public EmployeeNotFoundException() {
     }
 
     @Override

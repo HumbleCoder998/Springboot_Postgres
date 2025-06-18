@@ -16,13 +16,6 @@ public class EmployeeRequest {
     private DepartmentRequest departmentRequest;
     private AddressRequest addressRequest;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getAge() {
         return age;
@@ -38,6 +31,14 @@ public class EmployeeRequest {
 
     public void setAdhaarNumber(long adhaarNumber) {
         this.adhaarNumber = adhaarNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public DepartmentRequest getDepartmentRequest() {
