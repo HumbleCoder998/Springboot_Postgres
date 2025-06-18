@@ -30,12 +30,13 @@ public class EmployeeService {
     }
 
     public EmployeeResponse getEmployeeDetails(String id) throws EmployeeNotFoundException {
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
-        if(!employeeOptional.isPresent())
-        {
-            throw new EmployeeNotFoundException("Employee doesn't exist");
-        }
-        return employeeOptional.get().toEmployeeResponse();
+//        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+//        if(!employeeOptional.isPresent())
+//        {
+//            throw new EmployeeNotFoundException("Employee doesn't exist");
+//        }
+//        return employeeOptional.get().toEmployeeResponse();
+        return null;
     }
 
     public Employee findEmployee(UUID id) {

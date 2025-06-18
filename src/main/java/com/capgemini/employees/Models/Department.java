@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Department {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @Column
     private String department;
@@ -21,6 +21,4 @@ public class Department {
         this.department = department;
     }
 
-    @OneToMany
-    private List<Employee> employeeList;
 }

@@ -16,12 +16,10 @@ import java.util.List;
 @Entity
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @Column
     private String location;
-    @OneToMany
-    private List<Employee> employeeList;
 
     public String getLocation() {
         return location;
