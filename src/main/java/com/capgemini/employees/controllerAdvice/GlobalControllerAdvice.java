@@ -20,5 +20,14 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler{
         return responseEntity;
     }
 
+    @ExceptionHandler(EmployeeException.class)
+    public ResponseEntity<ErrorResponseDTO> handleEmployeeException(EmployeeException ex)
+    {
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO();
+        errorResponseDTO.setMessage(ex.getMessage());
+        ResponseEntity<ErrorResponseDTO> responseEntity = new ResponseEntity<>(errorResponseDTO,HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+    }
+
 
 }

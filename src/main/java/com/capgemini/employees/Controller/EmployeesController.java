@@ -25,14 +25,8 @@ public class EmployeesController {
     Validation validation;
 
     @GetMapping("/employees")
-    public ResponseEntity<?> getEmployees()
-    {
-        try {
+    public ResponseEntity<?> getEmployees() throws EmployeeException {
             return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees());
-        }catch(EmployeeException ex)
-        {
-            return ResponseEntity.internalServerError().body(ex.getMessage());
-        }
     }
 
     @PostMapping("/employee")
