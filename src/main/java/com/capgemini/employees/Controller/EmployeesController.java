@@ -3,6 +3,7 @@ package com.capgemini.employees.Controller;
 import com.capgemini.employees.DTO.EmployeeRequest;
 import com.capgemini.employees.DTO.EmployeeResponse;
 import com.capgemini.employees.Exceptions.EmployeeException;
+import com.capgemini.employees.Exceptions.EmployeeNotFoundException;
 import com.capgemini.employees.Models.Employee;
 import com.capgemini.employees.Service.EmployeeService;
 import com.capgemini.employees.Utils.Validation;
@@ -10,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.net.http.HttpClient;
 import java.util.NoSuchElementException;
+=======
+
+>>>>>>> e304d56d103e82c30a2ab3184c6093cd1ed04f63
 import java.util.UUID;
 
 @RestController
@@ -43,6 +48,7 @@ public class EmployeesController {
     }
 
     @GetMapping("/employee/{id}")
+<<<<<<< HEAD
     public ResponseEntity<?> getEmployeeById(@PathVariable UUID id)
     {
         try {
@@ -52,5 +58,9 @@ public class EmployeesController {
         {
             return ResponseEntity.internalServerError().body(new String("No employee exist with provided id"));
         }
+=======
+    public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable(name = "id") UUID id) throws EmployeeNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.getEmployeeDetails(id.toString()));
+>>>>>>> e304d56d103e82c30a2ab3184c6093cd1ed04f63
     }
 }

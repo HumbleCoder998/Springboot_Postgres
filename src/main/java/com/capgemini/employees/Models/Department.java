@@ -1,13 +1,10 @@
 package com.capgemini.employees.Models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-
 @Entity
 public class Department {
     @Id
@@ -15,8 +12,6 @@ public class Department {
     private int id;
     @Column
     private String department;
-    @OneToMany
-    private List<Employee> employeeList;
 
     public String getDepartment() {
         return department;
@@ -25,4 +20,7 @@ public class Department {
     public void setDepartment(String department) {
         this.department = department;
     }
+
+    @OneToMany
+    private List<Employee> employeeList;
 }
