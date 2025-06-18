@@ -2,7 +2,6 @@ package com.capgemini.employees.Controller;
 
 import com.capgemini.employees.DTO.EmployeeRequest;
 import com.capgemini.employees.DTO.EmployeeResponse;
-import com.capgemini.employees.EmployeesApplication;
 import com.capgemini.employees.Exceptions.EmployeeException;
 import com.capgemini.employees.Models.Employee;
 import com.capgemini.employees.Service.EmployeeService;
@@ -10,12 +9,12 @@ import com.capgemini.employees.Utils.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.List;
+import java.net.http.HttpClient;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RestController
 public class EmployeesController {
@@ -41,5 +40,17 @@ public class EmployeesController {
      Employee newEmployee = employeeRequest.from(employeeRequest);
      validation.validateAndUpdate(newEmployee,employeeRequest);
      return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.saveEmployee(newEmployee));
+    }
+
+    @GetMapping("/employee/{id}")
+    public ResponseEntity<?> getEmployeeById(@PathVariable UUID id)
+    {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(employeeService.findEmployee(id).toEmployeeResponse());
+        }
+        catch(NoSuchElementException ex)
+        {
+            return ResponseEntity.internalServerError().body(new String("No employee exist with provided id"));
+        }
     }
 }
