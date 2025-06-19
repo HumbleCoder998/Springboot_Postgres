@@ -25,8 +25,8 @@ public class EmployeesController {
     Validation validation;
 
     @GetMapping("/employees")
-    public ResponseEntity<?> getEmployees() throws EmployeeException {
-            return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees());
+    public ResponseEntity<?> getEmployees(@RequestParam(defaultValue = "0") int page , @RequestParam(defaultValue = "5") int size) throws EmployeeException {
+            return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees(page,size));
     }
 
     @PostMapping("/employee")

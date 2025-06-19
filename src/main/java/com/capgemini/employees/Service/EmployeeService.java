@@ -4,20 +4,16 @@ import com.capgemini.employees.DTO.EmployeeRequest;
 import com.capgemini.employees.DTO.EmployeeResponse;
 import com.capgemini.employees.Exceptions.EmployeeException;
 import com.capgemini.employees.Exceptions.EmployeeNotFoundException;
-import com.capgemini.employees.Models.Address;
-import com.capgemini.employees.Models.Department;
 import com.capgemini.employees.Models.Employee;
-import com.capgemini.employees.Repositories.AddressRepository;
-import com.capgemini.employees.Repositories.DepartmentRepository;
 import com.capgemini.employees.Repositories.EmployeeRepository;
 import com.capgemini.employees.Utils.Validation;
-import io.micrometer.core.instrument.config.validate.Validated;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,9 +25,10 @@ public class EmployeeService {
     @Autowired
     Validation validation;
 
-    public List<Employee> getAllEmployees() throws EmployeeException {
+    public Page<Employee> getAllEmployees(int page , int size) throws EmployeeException {
         if(employeeRepository.findAll().size() >= 1) {
-            return employeeRepository.findAll();
+            Pageable pageable = PageRequest.of(page,size);
+            return employeeRepository.findAll(pageable);
         }
         throw new EmployeeException("Employees not exist");
     }
