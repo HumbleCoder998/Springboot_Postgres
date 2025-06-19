@@ -41,8 +41,6 @@ public class EmployeesController {
     public ResponseEntity<EmployeeResponse> updateEmployee(@PathVariable UUID id , @RequestBody EmployeeRequest employeeRequest) throws EmployeeNotFoundException {
         Employee existingEmployee = employeeService.findEmployee(id);
         return  ResponseEntity.status(HttpStatus.CREATED).body(employeeService.updateEmployee(existingEmployee,employeeRequest));
-
-
     }
 
     @DeleteMapping("employee/{id}")
