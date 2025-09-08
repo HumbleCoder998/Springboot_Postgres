@@ -19,6 +19,21 @@ public class Employee {
     private UUID id;
     @Column()
     private String name;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", experience=" + experience +
+                ", nationality='" + nationality + '\'' +
+                ", department=" + department +
+                '}';
+    }
+
     @ManyToOne()
     @JoinColumn(name ="address_id")
     private Address address;
