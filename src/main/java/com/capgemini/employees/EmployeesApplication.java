@@ -66,7 +66,6 @@ public class EmployeesApplication {
 		System.out.println("Second largest salary employee");
 		employeeList.stream().sorted((emp1,emp2) -> Math.toIntExact(emp2.getSalary() - emp1.getSalary())).skip(1).limit(1).forEach(emp -> System.out.println(emp.getName()));
 
-
 	}
 
 }

@@ -18,18 +18,19 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/employees/")
 public class EmployeesController {
     @Autowired
     EmployeeService employeeService;
     @Autowired
     Validation validation;
 
-    @GetMapping("/employees")
+    @GetMapping()
     public ResponseEntity<?> getEmployees(@RequestParam(defaultValue = "0") int page , @RequestParam(defaultValue = "5") int size) throws EmployeeException {
             return ResponseEntity.status(HttpStatus.OK).body(employeeService.getAllEmployees(page,size));
     }
 
-    @PostMapping("/employee")
+    @PostMapping()
     public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeRequest employeeRequest)
     {
      Employee newEmployee = employeeRequest.from(employeeRequest);
@@ -37,19 +38,19 @@ public class EmployeesController {
      return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.saveEmployee(newEmployee));
     }
 
-    @PutMapping("employee/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<EmployeeResponse> updateEmployee(@PathVariable UUID id , @RequestBody EmployeeRequest employeeRequest) throws EmployeeNotFoundException {
         Employee existingEmployee = employeeService.findEmployee(id);
         return  ResponseEntity.status(HttpStatus.CREATED).body(employeeService.updateEmployee(existingEmployee,employeeRequest));
     }
 
-    @DeleteMapping("employee/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable UUID id) throws EmployeeNotFoundException {
     employeeService.deleteEmployee(id);
     return  ResponseEntity.status(HttpStatus.OK).body("Employee is deleted");
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable UUID id) throws EmployeeNotFoundException {
             return ResponseEntity.status(HttpStatus.OK).body(employeeService.findEmployee(id).toEmployeeResponse());
     }
