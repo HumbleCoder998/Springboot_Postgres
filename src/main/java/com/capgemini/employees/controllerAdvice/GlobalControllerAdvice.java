@@ -28,6 +28,4 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler{
         ResponseEntity<ErrorResponseDTO> responseEntity = new ResponseEntity<>(errorResponseDTO,HttpStatus.INTERNAL_SERVER_ERROR);
         return responseEntity;
     }
-
-
 }

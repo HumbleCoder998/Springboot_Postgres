@@ -7,7 +7,11 @@ import com.capgemini.employees.Exceptions.EmployeeNotFoundException;
 import com.capgemini.employees.Models.Employee;
 import com.capgemini.employees.Service.EmployeeService;
 import com.capgemini.employees.Utils.Validation;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +28,8 @@ public class EmployeesController {
     EmployeeService employeeService;
     @Autowired
     Validation validation;
+
+    private static final Logger logger = LogManager.getLogger(EmployeesController.class);
 
     @GetMapping()
     public ResponseEntity<?> getEmployees(@RequestParam(defaultValue = "0") int page , @RequestParam(defaultValue = "5") int size) throws EmployeeException {
@@ -52,6 +58,7 @@ public class EmployeesController {
 
     @GetMapping("{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable UUID id) throws EmployeeNotFoundException {
+            logger.log(Level.INFO,"fetching employee by id");
             return ResponseEntity.status(HttpStatus.OK).body(employeeService.findEmployee(id).toEmployeeResponse());
     }
 }

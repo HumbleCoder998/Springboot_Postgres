@@ -10,9 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.jpa.repository.NativeQuery;
 
 import java.util.UUID;
 @Entity
+@NamedQuery(name = "Employee.findByName" , query = "Select e from Employee e where e.name = ?1")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

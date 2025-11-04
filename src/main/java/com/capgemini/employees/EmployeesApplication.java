@@ -3,23 +3,45 @@ package com.capgemini.employees;
 import com.capgemini.employees.Models.Address;
 import com.capgemini.employees.Models.Department;
 import com.capgemini.employees.Models.Employee;
+import com.capgemini.employees.Repositories.AddressRepository;
+import com.capgemini.employees.Repositories.DepartmentRepository;
+import com.capgemini.employees.Repositories.EmployeeRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class EmployeesApplication {
+public class EmployeesApplication implements CommandLineRunner {
+
+
+	private final EmployeeRepository employeeRepository;
+	private final DepartmentRepository departmentRepository;
+	private final AddressRepository addressRepository;
+
+	public EmployeesApplication(EmployeeRepository employeeRepository , DepartmentRepository departmentRepository, AddressRepository addressRepository) {
+		this.employeeRepository = employeeRepository;
+		this.departmentRepository = departmentRepository;
+		this.addressRepository = addressRepository;
+
+	}
+
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(EmployeesApplication.class, args);
+
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
 
 		List<Employee> employeeList = new ArrayList<>();
 		Employee employee = new Employee();
@@ -46,7 +68,6 @@ public class EmployeesApplication {
 		employee2.setDepartment(department);
 		employeeList.add(employee2);
 
-
 		List<Employee> updatedList = employeeList.stream().sorted((emp,emp2) -> emp2.getAge()-emp.getAge()).collect(Collectors.toList());
 		System.out.println("Employees sorted by age desc");
 		updatedList.forEach(emp -> System.out.println(emp.getName()));
@@ -66,6 +87,11 @@ public class EmployeesApplication {
 		System.out.println("Second largest salary employee");
 		employeeList.stream().sorted((emp1,emp2) -> Math.toIntExact(emp2.getSalary() - emp1.getSalary())).skip(1).limit(1).forEach(emp -> System.out.println(emp.getName()));
 
-	}
+//		employeeRepository.findEmployeesByDepartment("development").get().stream().forEach(emp -> emp.getName());
 
+		employeeRepository.findEmployeeBySalary(1100000, Sort.by("name")).get().stream().forEach(emp -> emp.getName());
+		departmentRepository.findByDepartmentName("development", Sort.by("de")).get().stream().forEach(de -> de.getDepartment());
+        addressRepository.findByAddress("Gurugram").get().stream().forEach(add -> add.getLocation());
+
+	}
 }
